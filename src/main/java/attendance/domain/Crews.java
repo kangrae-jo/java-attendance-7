@@ -1,8 +1,7 @@
 package attendance.domain;
 
-import static attendance.config.AppConfig.NOW;
-
 import attendance.dto.ModifiedDto;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class Crews {
 
     public void attend(String crewName, LocalTime arrivalTime) {
         Crew crew = findCrewByName(crewName);
-        crew.attend(NOW.toLocalDate(), ArrivalInformation.from(arrivalTime));
+        crew.attend(DateTimes.now().toLocalDate(), ArrivalInformation.from(arrivalTime));
     }
 
     public ModifiedDto modify(String crewName, LocalDate date, LocalTime time) {

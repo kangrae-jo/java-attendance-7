@@ -2,8 +2,8 @@ package attendance.domain;
 
 import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Crew {
 
@@ -50,7 +50,7 @@ public class Crew {
     }
 
     private Map<LocalDate, ArrivalInformation> init() {
-        Map<LocalDate, ArrivalInformation> initial = new HashMap<>();
+        Map<LocalDate, ArrivalInformation> initial = new TreeMap<>();
         LocalDate start = LocalDate.of(2024, 12, 1);
         for (int i = 0; i < 31; i++) {
             LocalDate date = start.plusDays(i);

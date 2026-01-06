@@ -2,15 +2,18 @@ package attendance.controller;
 
 import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 
+import attendance.domain.ArrivalInformation;
 import attendance.domain.Crews;
 import attendance.dto.ModifiedDto;
 import attendance.service.FileReaderService;
 import attendance.service.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class Controller {
@@ -37,7 +40,7 @@ public class Controller {
                 handleAttendanceModifyFunction(crews);
             }
             if ("3".equals(function)) {
-
+                handleAttendanceInformation(crews);
             }
             if ("4".equals(function)) {
 
@@ -69,6 +72,16 @@ public class Controller {
         LocalTime time = readTime();
 
         ModifiedDto modifiedDto = crews.modify(crewName, date, time);
+    }
+
+    private void handleAttendanceInformation(Crews crews) {
+        String crewName = inputView.readCrewName();
+        Map<LocalDate, ArrivalInformation> information = crews.getAttendanceInformationFrom(crewName);
+        LocalDate start = LocalDate.of(2024, 12, 1);
+        for (int i = DateTimes.now().getDayOfMonth(); i < 31; i++) {
+            information.remove(start.plusDays(i));
+        }
+        outputView.printAttendanceInformation(crewName, information);
     }
 
     private LocalTime readArrivalTime() {

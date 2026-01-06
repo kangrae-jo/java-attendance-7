@@ -7,9 +7,7 @@ import java.util.List;
 
 public class FileReaderService {
 
-    public static String ATTENDANCES_CSV_DIR = "src/main/resources/attendances.csv";
-
-    public static List<String> readFile(String filePath) {
+    public List<String> readFile(String filePath) {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             return bufferedReader.lines().toList();
         } catch (IOException e) {

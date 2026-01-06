@@ -32,6 +32,10 @@ public class Crew {
         return new ModifiedDto(before, after);
     }
 
+    public Map<LocalDate, ArrivalTime> getAttendanceInformation() {
+        return Map.copyOf(attendance);
+    }
+
     public boolean isSameName(String name) {
         return name.equals(this.name);
     }

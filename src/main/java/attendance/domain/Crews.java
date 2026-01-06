@@ -1,6 +1,8 @@
 package attendance.domain;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class Crews {
 
@@ -10,8 +12,9 @@ public class Crews {
         this.crews = crews;
     }
 
-    public void getAttendanceInformationFrom(String crewName) {
-
+    public Map<LocalDate, ArrivalTime> getAttendanceInformationFrom(String crewName) {
+        Crew crew = findCrewByName(crewName);
+        return crew.getAttendanceInformation();
     }
 
     private Crew findCrewByName(String crewName) {

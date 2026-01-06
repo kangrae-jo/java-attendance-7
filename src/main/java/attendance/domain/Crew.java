@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -21,11 +22,14 @@ public class Crew {
         attendance.put(today, arrivalTime);
     }
 
-    public void modify(LocalDate today, ArrivalTime arrivalTime) {
-        if (attendance.get(today) == null) {
+    public ModifiedDto modify(LocalDate today, ArrivalTime after) {
+        ArrivalTime before = attendance.get(today);
+        if (before == null) {
             throw new IllegalArgumentException("출석 기록이 없습니다. 필요한 경우 출석 확인 기능을 이용해주세요.");
         }
-        attendance.put(today, arrivalTime);
+        attendance.put(today, after);
+
+        return new ModifiedDto(before, after);
     }
 
 }

@@ -4,7 +4,10 @@ import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 
 import attendance.domain.ArrivalInformation;
 import attendance.domain.Crews;
+import attendance.domain.Measure;
+import attendance.dto.MeasuresDto;
 import attendance.dto.ModifiedDto;
+import attendance.service.ExpelRiskCrewFinder;
 import attendance.service.FileReaderService;
 import attendance.service.InputParser;
 import attendance.view.InputView;
@@ -93,10 +96,13 @@ public class Controller {
         String crewName = inputView.readCrewName();
         Map<LocalDate, ArrivalInformation> information = crews.getAttendanceInformationFrom(crewName);
         LocalDate start = LocalDate.of(2024, 12, 1);
-        for (int i = DateTimes.now().getDayOfMonth(); i < 31; i++) {
+        for (int i = DateTimes.now().getDayOfMonth() - 1; i < 31; i++) {
             information.remove(start.plusDays(i));
         }
         outputView.printAttendanceInformation(crewName, information);
+        Map<String, MeasuresDto> dto = ExpelRiskCrewFinder.find(crews);
+        Measure measure = ExpelRiskCrewFinder.findMeasure(crewName, dto);
+        outputView.printState(dto, crewName, measure);
     }
 
     private LocalTime readArrivalTime() {

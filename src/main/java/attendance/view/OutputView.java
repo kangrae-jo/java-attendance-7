@@ -1,7 +1,9 @@
 package attendance.view;
 
 import attendance.domain.ArrivalInformation;
+import attendance.domain.Measure;
 import attendance.domain.State;
+import attendance.dto.MeasuresDto;
 import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +13,18 @@ import java.util.Locale;
 import java.util.Map;
 
 public class OutputView {
+
+    public void printState(Map<String, MeasuresDto> dto, String name, Measure measure) {
+        MeasuresDto measuresDto = dto.get(name);
+        System.out.println(State.ATTENDANCE.getName() + ": " + measuresDto.getMeasures().get(State.ATTENDANCE) + "회");
+        System.out.println(State.LATE.getName() + ": " + measuresDto.getMeasures().get(State.LATE) + "회");
+        System.out.println(State.ABSENCE.getName() + ": " + measuresDto.getMeasures().get(State.ABSENCE) + "회");
+        System.out.println();
+        if (measure != Measure.NONE) {
+            System.out.println(measure.getName() + " 대상자");
+        }
+        System.out.println();
+    }
 
     public void printArrivalInformation(LocalDateTime today, ArrivalInformation information) {
         System.out.println(getToday(today.toLocalDate()) + " " + getTime(information) + " " + getState(information));

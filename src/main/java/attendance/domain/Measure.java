@@ -2,6 +2,7 @@ package attendance.domain;
 
 public enum Measure {
 
+    NONE(""),
     WARING("경고"),
     CONSUL("상담"),
     EXPEL("제적");
@@ -10,6 +11,10 @@ public enum Measure {
 
     Measure(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

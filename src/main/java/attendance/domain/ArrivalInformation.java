@@ -13,7 +13,7 @@ public class ArrivalInformation {
         this.arrivalTime = arrivalTime;
         this.state = state;
     }
-
+    
     public static ArrivalInformation from(LocalTime arrivalTime) {
         Duration duration = Duration.between(DateTimes.now().toLocalTime(), arrivalTime);
         long minute = duration.toMinutes();

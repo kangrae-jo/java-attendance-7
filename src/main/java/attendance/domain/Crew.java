@@ -53,7 +53,10 @@ public class Crew {
         Map<LocalDate, ArrivalInformation> initial = new HashMap<>();
         LocalDate start = LocalDate.of(2024, 12, 1);
         for (int i = 0; i < 31; i++) {
-            initial.put(start.plusDays(i), null);
+            LocalDate date = start.plusDays(i);
+            if (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7) {
+                initial.put(date, null);
+            }
         }
         return initial;
     }

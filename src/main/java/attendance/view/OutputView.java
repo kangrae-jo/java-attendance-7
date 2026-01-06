@@ -1,6 +1,7 @@
 package attendance.view;
 
 import attendance.domain.ArrivalInformation;
+import attendance.domain.State;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -16,6 +17,21 @@ public class OutputView {
     public String getToday(LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일", Locale.KOREAN);
         return today.format(formatter) + " " + today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREA);
+    }
+
+    private String getTime(ArrivalInformation information) {
+        if (information == null) {
+            return "--:--";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm", Locale.KOREAN);
+        return information.getArrivalTime().format(formatter);
+    }
+
+    private String getState(ArrivalInformation information) {
+        if (information == null) {
+            return "(" + State.ABSENCE.getName() + ")";
+        }
+        return "(" + information.getState().getName() + ")";
     }
 
     public void printFunctionList() {
@@ -37,10 +53,9 @@ public class OutputView {
     }
 
     private void printInformation(LocalDate date, ArrivalInformation information) {
-        System.out.println(getToday(date));
-        String arrivalTime = "--:--";
-        System.out.print(information.getArrivalTime() + " ");
-        System.out.print("(" + information.getState().getName() + ")");
+        System.out.print(getToday(date) + " ");
+        System.out.print(getTime(information) + " ");
+        System.out.println(getState(information));
     }
 
 }

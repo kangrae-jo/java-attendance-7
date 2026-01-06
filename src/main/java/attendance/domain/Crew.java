@@ -32,4 +32,8 @@ public class Crew {
         return new ModifiedDto(before, after);
     }
 
+    public boolean isSameName(String name) {
+        return name.equals(this.name);
+    }
+
 }

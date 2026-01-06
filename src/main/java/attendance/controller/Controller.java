@@ -63,6 +63,9 @@ public class Controller {
     }
 
     private void handleAttendanceFunction(Crews crews) {
+        if (DateTimes.now().getDayOfWeek().getValue() == 6 || DateTimes.now().getDayOfWeek().getValue() == 7) {
+            throw new IllegalArgumentException("[ERROR] 12월 14일 토요일은 등교일이 아닙니다.");
+        }
         String crewName = inputView.readCrewName();
         crews.isExist(crewName);
         LocalTime arrivalTime = readArrivalTime();

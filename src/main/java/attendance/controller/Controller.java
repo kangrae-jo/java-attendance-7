@@ -10,7 +10,6 @@ import attendance.service.FileReaderService;
 import attendance.service.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
-import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -90,7 +89,7 @@ public class Controller {
         String crewName = inputView.readCrewName();
         Map<LocalDate, ArrivalInformation> information = crews.getAttendanceInformationFrom(crewName);
         LocalDate start = LocalDate.of(2024, 12, 1);
-        for (int i = DateTimes.now().getDayOfMonth(); i < 31; i++) {
+        for (int i = NOW.getDayOfMonth(); i < 31; i++) {
             information.remove(start.plusDays(i));
         }
         outputView.printAttendanceInformation(crewName, information);

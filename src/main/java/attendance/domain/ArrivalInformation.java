@@ -1,7 +1,7 @@
 package attendance.domain;
 
-import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ArrivalInformation {
@@ -14,8 +14,9 @@ public class ArrivalInformation {
         this.state = state;
     }
 
-    public static ArrivalInformation from(LocalTime arrivalTime) {
-        Duration duration = Duration.between(arrivalTime, DateTimes.now().toLocalTime());
+    public static ArrivalInformation from(LocalDate date, LocalTime arrivalTime) {
+        LocalTime time = AttendancePolicy.from(date).getStart();
+        Duration duration = Duration.between(time, arrivalTime);
         long minute = duration.toMinutes();
         if (minute < 5) {
             return new ArrivalInformation(arrivalTime, State.ATTENDANCE);

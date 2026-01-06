@@ -71,7 +71,7 @@ public class Controller {
         LocalTime arrivalTime = readArrivalTime();
 
         trys(() -> {
-            ArrivalInformation information = crews.attend(crewName, arrivalTime);
+            ArrivalInformation information = crews.attend(crewName, DateTimes.now().toLocalDate(), arrivalTime);
             outputView.printArrivalInformation(DateTimes.now(), information);
             return null;
         });
@@ -84,6 +84,7 @@ public class Controller {
 
         trys(() -> {
             ModifiedDto modifiedDto = crews.modify(crewName, date, time);
+            outputView.printModified(date, modifiedDto);
             return null;
         });
     }

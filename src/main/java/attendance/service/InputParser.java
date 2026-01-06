@@ -25,7 +25,8 @@ public class InputParser {
             String[] split1 = dateAndTime.split(" ");
             String date = split1[0];
             String time = split1[1];
-            crew.attend(LocalDate.parse(date), ArrivalInformation.from(LocalTime.parse(time + ":00")));
+            crew.attend(LocalDate.parse(date),
+                    ArrivalInformation.from(LocalDate.parse(date), LocalTime.parse(time + ":00")));
         }
         return crews.values().stream().toList();
     }

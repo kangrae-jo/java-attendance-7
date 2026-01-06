@@ -12,4 +12,12 @@ public class ModifiedDto {
         this.after = after;
     }
 
+    public ArrivalInformation getBefore() {
+        return before;
+    }
+
+    public ArrivalInformation getAfter() {
+        return after;
+    }
+
 }

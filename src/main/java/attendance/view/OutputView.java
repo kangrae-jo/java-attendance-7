@@ -2,6 +2,7 @@ package attendance.view;
 
 import attendance.domain.ArrivalInformation;
 import attendance.domain.State;
+import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,11 @@ public class OutputView {
 
     public void printArrivalInformation(LocalDateTime today, ArrivalInformation information) {
         System.out.println(getToday(today.toLocalDate()) + " " + getTime(information) + " " + getState(information));
+    }
+
+    public void printModified(LocalDate date, ModifiedDto dto) {
+        System.out.println(getToday(date) + " " + getTime(dto.getBefore()) + " " + getState(dto.getBefore())
+                + " -> " + getTime(dto.getAfter()) + " " + getState(dto.getAfter()));
     }
 
     public String getToday(LocalDate today) {

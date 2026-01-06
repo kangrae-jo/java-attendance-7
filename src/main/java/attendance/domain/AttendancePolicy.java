@@ -1,21 +1,37 @@
 package attendance.domain;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public enum AttendancePolicy {
 
-    MONDAY("월요일", Time.FROM_1300, Time.TO_1800),
-    TUESDAY("화요일", Time.FROM_1000, Time.TO_1800),
-    WEDNESDAY("수요일", Time.FROM_1000, Time.TO_1800),
-    THURSDAY("목요일", Time.FROM_1000, Time.TO_1800),
-    FRIDAY("금요일", Time.FROM_1000, Time.TO_1800);
+    MONDAY(1, LocalTime.of(13, 0), LocalTime.of(18, 0)),
+    TUESDAY(2, LocalTime.of(10, 0), LocalTime.of(18, 0)),
+    WEDNESDAY(3, LocalTime.of(10, 0), LocalTime.of(18, 0)),
+    THURSDAY(4, LocalTime.of(10, 0), LocalTime.of(18, 0)),
+    FRIDAY(5, LocalTime.of(10, 0), LocalTime.of(18, 0));
 
-    private final String name;
-    private final Time start;
-    private final Time end;
+    private final int value;
+    private final LocalTime start;
+    private final LocalTime end;
 
-    AttendancePolicy(String name, Time start, Time end) {
-        this.name = name;
+    AttendancePolicy(int value, LocalTime start, LocalTime end) {
+        this.value = value;
         this.start = start;
         this.end = end;
     }
 
+    public static AttendancePolicy from(LocalDate date) {
+        for (AttendancePolicy policy : AttendancePolicy.values()) {
+            if (policy.value == date.getDayOfWeek().getValue()) {
+                return policy;
+            }
+        }
+        throw new IllegalArgumentException("[ERROR] 없는 요일입니다.");
+    }
+
+    public LocalTime getStart() {
+        return start;
+    }
+    
 }

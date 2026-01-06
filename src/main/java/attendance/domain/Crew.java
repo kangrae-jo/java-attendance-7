@@ -1,0 +1,64 @@
+package attendance.domain;
+
+import attendance.dto.ModifiedDto;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class Crew {
+
+    private final String name;
+    private final Map<LocalDate, ArrivalInformation> attendance;
+
+    private Crew(String name) {
+        this.name = name;
+        this.attendance = init();
+    }
+
+    public static Crew from(String name) {
+        return new Crew(name);
+    }
+
+    public void attend(LocalDate today, ArrivalInformation arrivalInformation) {
+        if (attendance.get(today) != null) {
+            throw new IllegalArgumentException("이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해주세요.");
+        }
+        // TODO: 주말 및 공휴일 출석 시도는 오류처리 (이건 Modify에서도 동일하니 메서드로 뽑아내기 또는 Arrival에서 관리하기)
+        attendance.put(today, arrivalInformation);
+    }
+
+    public ModifiedDto modify(LocalDate date, ArrivalInformation after) {
+        ArrivalInformation before = attendance.get(date);
+        if (before == null) {
+            throw new IllegalArgumentException("출석 기록이 없습니다. 필요한 경우 출석 확인 기능을 이용해주세요.");
+        }
+        attendance.put(date, after);
+
+        return new ModifiedDto(before, after);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Map<LocalDate, ArrivalInformation> getAttendanceInformation() {
+        return attendance;
+    }
+
+    public boolean isSameName(String name) {
+        return name.equals(this.name);
+    }
+
+    private Map<LocalDate, ArrivalInformation> init() {
+        Map<LocalDate, ArrivalInformation> initial = new TreeMap<>();
+        LocalDate start = LocalDate.of(2024, 12, 1);
+        for (int i = 0; i < 31; i++) {
+            LocalDate date = start.plusDays(i);
+            if (date.getDayOfWeek().getValue() != 6 && date.getDayOfWeek().getValue() != 7) {
+                initial.put(date, null);
+            }
+        }
+        return initial;
+    }
+
+}

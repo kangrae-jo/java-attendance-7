@@ -38,6 +38,7 @@ public class OutputView {
 
     private void printInformation(LocalDate date, ArrivalInformation information) {
         System.out.println(getToday(date));
+        String arrivalTime = "--:--";
         System.out.print(information.getArrivalTime() + " ");
         System.out.print("(" + information.getState().getName() + ")");
     }

@@ -5,6 +5,7 @@ import static attendance.config.AppConfig.NOW;
 import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +17,8 @@ public class Crews {
         this.crews = crews;
     }
 
-    public static Crews from(Map<String, Crew> crews) {
-        return new Crews(crews.values().stream().toList());
+    public static Crews from(List<Crew> crews) {
+        return new Crews(new ArrayList<>(crews));
     }
 
     public void attend(String crewName, LocalTime arrivalTime) {
@@ -41,6 +42,7 @@ public class Crews {
 
     private Crew findCrewByName(String crewName) {
         for (Crew crew : crews) {
+            System.out.println(crewName);
             if (crew.isSameName(crewName)) {
                 return crew;
             }

@@ -53,7 +53,7 @@ public class Controller {
     private Crews readCrewsFromFile(String dir) {
         return retryUntilValid(() -> {
             List<String> lines = fileReaderService.readFile(dir);
-            return InputParser.parseCrews(lines);
+            return Crews.from(InputParser.parseCrews(lines));
         });
     }
 

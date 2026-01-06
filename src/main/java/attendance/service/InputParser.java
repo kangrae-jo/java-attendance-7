@@ -2,9 +2,9 @@ package attendance.service;
 
 import attendance.domain.ArrivalInformation;
 import attendance.domain.Crew;
-import attendance.domain.Crews;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +14,15 @@ public class InputParser {
     private InputParser() {
     }
 
-    public static Crews parseCrews(List<String> lines) {
+    public static List<Crew> parseCrews(List<String> lines) {
         Map<String, Crew> crews = new HashMap<>();
+        List<Crew> temp = new ArrayList<>();
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
             String[] split = line.split(",");
             String name = split[0];
             Crew crew = crews.getOrDefault(name, Crew.from(name));
+            temp.add(crew);
 
             String dateAndTime = split[1];
             String[] split1 = dateAndTime.split(" ");
@@ -29,7 +31,7 @@ public class InputParser {
             crew.attend(LocalDate.parse(date), ArrivalInformation.from(LocalTime.parse(time + ":00")));
         }
 
-        return Crews.from(crews);
+        return temp;
     }
 
     public static LocalTime parseTime(String time) {

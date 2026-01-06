@@ -42,7 +42,7 @@ public class Crew {
     }
 
     public Map<LocalDate, ArrivalInformation> getAttendanceInformation() {
-        return Map.copyOf(attendance);
+        return attendance;
     }
 
     public boolean isSameName(String name) {

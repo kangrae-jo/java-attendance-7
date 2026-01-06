@@ -12,7 +12,7 @@ public class Crews {
         this.crews = crews;
     }
 
-    public Map<LocalDate, ArrivalTime> getAttendanceInformationFrom(String crewName) {
+    public Map<LocalDate, ArrivalInformation> getAttendanceInformationFrom(String crewName) {
         Crew crew = findCrewByName(crewName);
         return crew.getAttendanceInformation();
     }

@@ -1,13 +1,13 @@
 package attendance.dto;
 
-import attendance.domain.ArrivalTime;
+import attendance.domain.ArrivalInformation;
 
 public class ModifiedDto {
 
-    private final ArrivalTime before;
-    private final ArrivalTime after;
+    private final ArrivalInformation before;
+    private final ArrivalInformation after;
 
-    public ModifiedDto(ArrivalTime before, ArrivalTime after) {
+    public ModifiedDto(ArrivalInformation before, ArrivalInformation after) {
         this.before = before;
         this.after = after;
     }

@@ -35,6 +35,10 @@ public class Crews {
         return crew.getAttendanceInformation();
     }
 
+    public void isExist(String crewName) {
+        findCrewByName(crewName);
+    }
+
     public List<Crew> getCrews() {
         return List.copyOf(crews);
     }
@@ -45,7 +49,7 @@ public class Crews {
                 return crew;
             }
         }
-        throw new IllegalArgumentException("등록되지 않은 닉네임입니다.");
+        throw new IllegalArgumentException("[ERROR] 등록되지 않은 닉네임입니다.");
     }
 
 }

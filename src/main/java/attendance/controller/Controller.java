@@ -64,6 +64,7 @@ public class Controller {
 
     private void handleAttendanceFunction(Crews crews) {
         String crewName = inputView.readCrewName();
+        crews.isExist(crewName);
         LocalTime arrivalTime = readArrivalTime();
 
         trys(() -> {

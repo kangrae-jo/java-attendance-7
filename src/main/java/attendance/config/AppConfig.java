@@ -19,7 +19,7 @@ public class AppConfig {
 
     private InputView inputView() {
         if (inputView == null) {
-            return inputView = new InputView();
+            return inputView = new InputView(outputView());
         }
         return inputView;
     }

@@ -69,7 +69,6 @@ public class Controller {
         });
     }
 
-
     private <T> T retryUntilValid(Supplier<T> supplier) {
         while (true) {
             try {

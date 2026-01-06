@@ -20,9 +20,11 @@ public class Crews {
         return new Crews(new ArrayList<>(crews));
     }
 
-    public void attend(String crewName, LocalTime arrivalTime) {
+    public ArrivalInformation attend(String crewName, LocalTime arrivalTime) {
         Crew crew = findCrewByName(crewName);
-        crew.attend(DateTimes.now().toLocalDate(), ArrivalInformation.from(arrivalTime));
+        ArrivalInformation arrivalInformation = ArrivalInformation.from(arrivalTime);
+        crew.attend(DateTimes.now().toLocalDate(), arrivalInformation);
+        return arrivalInformation;
     }
 
     public ModifiedDto modify(String crewName, LocalDate date, LocalTime time) {

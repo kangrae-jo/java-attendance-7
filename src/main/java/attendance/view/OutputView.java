@@ -3,6 +3,7 @@ package attendance.view;
 import attendance.domain.ArrivalInformation;
 import attendance.domain.State;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -10,8 +11,8 @@ import java.util.Map;
 
 public class OutputView {
 
-    public void printErrorMessage(String message) {
-        System.out.println("[ERROR] " + message);
+    public void printArrivalInformation(LocalDateTime today, ArrivalInformation information) {
+        System.out.println(getToday(today.toLocalDate()) + " " + getTime(information) + " " + getState(information));
     }
 
     public String getToday(LocalDate today) {

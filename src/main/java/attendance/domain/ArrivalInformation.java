@@ -13,9 +13,9 @@ public class ArrivalInformation {
         this.arrivalTime = arrivalTime;
         this.state = state;
     }
-    
+
     public static ArrivalInformation from(LocalTime arrivalTime) {
-        Duration duration = Duration.between(DateTimes.now().toLocalTime(), arrivalTime);
+        Duration duration = Duration.between(arrivalTime, DateTimes.now().toLocalTime());
         long minute = duration.toMinutes();
         if (minute < 5) {
             return new ArrivalInformation(arrivalTime, State.ATTENDANCE);

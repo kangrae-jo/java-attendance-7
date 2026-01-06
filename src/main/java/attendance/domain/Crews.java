@@ -1,6 +1,8 @@
 package attendance.domain;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,11 @@ public class Crews {
 
     public static Crews from(Map<String, Crew> crews) {
         return new Crews(crews.values().stream().toList());
+    }
+
+    public void attend(String crewName, LocalTime arrivalTime) {
+        Crew crew = findCrewByName(crewName);
+        crew.attend(DateTimes.now().toLocalDate(), ArrivalInformation.from(arrivalTime));
     }
 
     public Map<LocalDate, ArrivalInformation> getAttendanceInformationFrom(String crewName) {

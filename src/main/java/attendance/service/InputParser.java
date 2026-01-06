@@ -4,8 +4,7 @@ import attendance.domain.ArrivalInformation;
 import attendance.domain.Crew;
 import attendance.domain.Crews;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +25,19 @@ public class InputParser {
             String dateAndTime = split[1];
             String[] split1 = dateAndTime.split(" ");
             String date = split1[0];
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            crew.attend(LocalDate.parse(date), ArrivalInformation.from(LocalDateTime.parse(dateAndTime, formatter)));
+            String time = split1[1];
+            crew.attend(LocalDate.parse(date), ArrivalInformation.from(LocalTime.parse(time + ":00")));
         }
 
         return Crews.from(crews);
+    }
+
+    public static LocalTime parseTime(String time) {
+        try {
+            return LocalTime.parse(time + ":00");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("잘못된 형식을 입력하였습니다.");
+        }
     }
 
 }

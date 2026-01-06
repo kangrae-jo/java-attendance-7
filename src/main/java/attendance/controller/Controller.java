@@ -7,6 +7,7 @@ import attendance.service.FileReaderService;
 import attendance.service.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -28,7 +29,7 @@ public class Controller {
         String function;
         while (!"Q".equals(function = readFunction())) {
             if ("1".equals(function)) {
-            
+                handleAttendanceFunction(crews);
             }
             if ("2".equals(function)) {
 
@@ -54,6 +55,20 @@ public class Controller {
                 inputView.readFunction()
         );
     }
+
+    private void handleAttendanceFunction(Crews crews) {
+        String crewName = inputView.readCrewName();
+        LocalTime arrivalTime = readArrivalTime();
+        crews.attend(crewName, arrivalTime);
+    }
+
+    private LocalTime readArrivalTime() {
+        return retryUntilValid(() -> {
+            String time = inputView.readArrivalTime();
+            return InputParser.parseTime(time);
+        });
+    }
+
 
     private <T> T retryUntilValid(Supplier<T> supplier) {
         while (true) {

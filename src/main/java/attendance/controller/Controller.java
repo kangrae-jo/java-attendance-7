@@ -67,7 +67,11 @@ public class Controller {
         String crewName = inputView.readCrewName();
         LocalTime arrivalTime = readArrivalTime();
 
-        crews.attend(crewName, arrivalTime);
+        try {
+            crews.attend(crewName, arrivalTime);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+        }
     }
 
     private void handleAttendanceModifyFunction(Crews crews) {
@@ -75,7 +79,11 @@ public class Controller {
         LocalDate date = readDate();
         LocalTime time = readTime();
 
-        ModifiedDto modifiedDto = crews.modify(crewName, date, time);
+        try {
+            ModifiedDto modifiedDto = crews.modify(crewName, date, time);
+        } catch (IllegalArgumentException e) {
+            outputView.printErrorMessage(e.getMessage());
+        }
     }
 
     private void handleAttendanceInformation(Crews crews) {

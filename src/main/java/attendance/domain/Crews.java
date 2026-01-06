@@ -42,7 +42,6 @@ public class Crews {
 
     private Crew findCrewByName(String crewName) {
         for (Crew crew : crews) {
-            System.out.println(crewName);
             if (crew.isSameName(crewName)) {
                 return crew;
             }

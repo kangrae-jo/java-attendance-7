@@ -50,14 +50,14 @@ public class Controller {
     }
 
     private Crews readCrewsFromFile(String dir) {
-        return retryUntilValid(() -> {
+        return trys(() -> {
             List<String> lines = fileReaderService.readFile(dir);
             return Crews.from(InputParser.parseCrews(lines));
         });
     }
 
     private String readFunction(LocalDateTime today) {
-        return retryUntilValid(
+        return trys(
                 () -> inputView.readFunction(today)
         );
     }
@@ -66,11 +66,10 @@ public class Controller {
         String crewName = inputView.readCrewName();
         LocalTime arrivalTime = readArrivalTime();
 
-        try {
+        trys(() -> {
             crews.attend(crewName, arrivalTime);
-        } catch (IllegalArgumentException e) {
-            outputView.printErrorMessage(e.getMessage());
-        }
+            return null;
+        });
     }
 
     private void handleAttendanceModifyFunction(Crews crews) {
@@ -78,11 +77,10 @@ public class Controller {
         LocalDate date = readDate();
         LocalTime time = readTime();
 
-        try {
+        trys(() -> {
             ModifiedDto modifiedDto = crews.modify(crewName, date, time);
-        } catch (IllegalArgumentException e) {
-            outputView.printErrorMessage(e.getMessage());
-        }
+            return null;
+        });
     }
 
     private void handleAttendanceInformation(Crews crews) {
@@ -96,33 +94,31 @@ public class Controller {
     }
 
     private LocalTime readArrivalTime() {
-        return retryUntilValid(() -> {
+        return trys(() -> {
             String time = inputView.readArrivalTime();
             return InputParser.parseTime(time);
         });
     }
 
     private LocalTime readTime() {
-        return retryUntilValid(() -> {
+        return trys(() -> {
             String time = inputView.readModifyTime();
             return InputParser.parseTime(time);
         });
     }
 
     private LocalDate readDate() {
-        return retryUntilValid(() -> {
+        return trys(() -> {
             String date = inputView.readDate();
             return InputParser.parseDate(date);
         });
     }
 
-    private <T> T retryUntilValid(Supplier<T> supplier) {
-        while (true) {
-            try {
-                return supplier.get();
-            } catch (IllegalArgumentException e) {
-                outputView.printErrorMessage(e.getMessage());
-            }
+    private <T> T trys(Supplier<T> supplier) {
+        try {
+            return supplier.get();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("[ERROR] " + e.getMessage());
         }
     }
 

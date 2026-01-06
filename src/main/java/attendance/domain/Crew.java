@@ -2,6 +2,7 @@ package attendance.domain;
 
 import attendance.dto.ModifiedDto;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Crew {
@@ -9,9 +10,13 @@ public class Crew {
     private final String name;
     private final Map<LocalDate, ArrivalInformation> attendance;
 
-    private Crew(String name, Map<LocalDate, ArrivalInformation> attendance) {
+    private Crew(String name) {
         this.name = name;
-        this.attendance = attendance;
+        this.attendance = init();
+    }
+
+    public static Crew from(String name) {
+        return new Crew(name);
     }
 
     public void attend(LocalDate today, ArrivalInformation arrivalInformation) {
@@ -42,6 +47,15 @@ public class Crew {
 
     public boolean isSameName(String name) {
         return name.equals(this.name);
+    }
+
+    private Map<LocalDate, ArrivalInformation> init() {
+        Map<LocalDate, ArrivalInformation> initial = new HashMap<>();
+        LocalDate start = LocalDate.of(2024, 12, 1);
+        for (int i = 0; i < 31; i++) {
+            initial.put(start.plusDays(i), null);
+        }
+        return initial;
     }
 
 }

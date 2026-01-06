@@ -8,8 +8,12 @@ public class Crews {
 
     private final List<Crew> crews;
 
-    public Crews(List<Crew> crews) {
+    private Crews(List<Crew> crews) {
         this.crews = crews;
+    }
+
+    public static Crews from(Map<String, Crew> crews) {
+        return new Crews(crews.values().stream().toList());
     }
 
     public Map<LocalDate, ArrivalInformation> getAttendanceInformationFrom(String crewName) {

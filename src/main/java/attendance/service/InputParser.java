@@ -40,4 +40,12 @@ public class InputParser {
         }
     }
 
+    public static LocalDate parseDate(String date) {
+        try {
+            return LocalDate.parse("2024-12-" + date);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("잘못된 형식을 입력하였습니다.");
+        }
+    }
+
 }

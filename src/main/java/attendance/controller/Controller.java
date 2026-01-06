@@ -3,10 +3,12 @@ package attendance.controller;
 import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 
 import attendance.domain.Crews;
+import attendance.dto.ModifiedDto;
 import attendance.service.FileReaderService;
 import attendance.service.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.function.Supplier;
@@ -32,7 +34,7 @@ public class Controller {
                 handleAttendanceFunction(crews);
             }
             if ("2".equals(function)) {
-
+                handleAttendanceModifyFunction(crews);
             }
             if ("3".equals(function)) {
 
@@ -51,21 +53,42 @@ public class Controller {
     }
 
     private String readFunction() {
-        return retryUntilValid(() ->
-                inputView.readFunction()
-        );
+        return retryUntilValid(inputView::readFunction);
     }
 
     private void handleAttendanceFunction(Crews crews) {
         String crewName = inputView.readCrewName();
         LocalTime arrivalTime = readArrivalTime();
+
         crews.attend(crewName, arrivalTime);
+    }
+
+    private void handleAttendanceModifyFunction(Crews crews) {
+        String crewName = inputView.readCrewName();
+        LocalDate date = readDate();
+        LocalTime time = readTime();
+
+        ModifiedDto modifiedDto = crews.modify(crewName, date, time);
     }
 
     private LocalTime readArrivalTime() {
         return retryUntilValid(() -> {
             String time = inputView.readArrivalTime();
             return InputParser.parseTime(time);
+        });
+    }
+
+    private LocalTime readTime() {
+        return retryUntilValid(() -> {
+            String time = inputView.readModifyTime();
+            return InputParser.parseTime(time);
+        });
+    }
+
+    private LocalDate readDate() {
+        return retryUntilValid(() -> {
+            String date = inputView.readDate();
+            return InputParser.parseDate(date);
         });
     }
 

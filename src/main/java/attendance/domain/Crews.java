@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import attendance.dto.ModifiedDto;
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -21,6 +22,11 @@ public class Crews {
     public void attend(String crewName, LocalTime arrivalTime) {
         Crew crew = findCrewByName(crewName);
         crew.attend(DateTimes.now().toLocalDate(), ArrivalInformation.from(arrivalTime));
+    }
+
+    public ModifiedDto modify(String crewName, LocalDate date, LocalTime time) {
+        Crew crew = findCrewByName(crewName);
+        return crew.modify(date, ArrivalInformation.from(time));
     }
 
     public Map<LocalDate, ArrivalInformation> getAttendanceInformationFrom(String crewName) {

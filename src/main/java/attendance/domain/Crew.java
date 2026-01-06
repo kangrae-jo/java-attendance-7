@@ -27,12 +27,12 @@ public class Crew {
         attendance.put(today, arrivalInformation);
     }
 
-    public ModifiedDto modify(LocalDate today, ArrivalInformation after) {
-        ArrivalInformation before = attendance.get(today);
+    public ModifiedDto modify(LocalDate date, ArrivalInformation after) {
+        ArrivalInformation before = attendance.get(date);
         if (before == null) {
             throw new IllegalArgumentException("출석 기록이 없습니다. 필요한 경우 출석 확인 기능을 이용해주세요.");
         }
-        attendance.put(today, after);
+        attendance.put(date, after);
 
         return new ModifiedDto(before, after);
     }

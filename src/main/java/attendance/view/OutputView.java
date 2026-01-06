@@ -2,12 +2,20 @@ package attendance.view;
 
 import attendance.domain.ArrivalInformation;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 import java.util.Map;
 
 public class OutputView {
 
     public void printErrorMessage(String message) {
         System.out.println("[ERROR] " + message);
+    }
+
+    public String getToday(LocalDate today) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일", Locale.KOREAN);
+        return today.format(formatter) + " " + today.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREA);
     }
 
     public void printFunctionList() {
@@ -29,9 +37,7 @@ public class OutputView {
     }
 
     private void printInformation(LocalDate date, ArrivalInformation information) {
-        System.out.print(date.getMonth() + "월");
-        System.out.print(date.getDayOfMonth() + "일 ");
-        System.out.print(date.getDayOfWeek() + " ");
+        System.out.println(getToday(date));
         System.out.print(information.getArrivalTime() + " ");
         System.out.print("(" + information.getState().getName() + ")");
     }

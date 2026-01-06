@@ -1,6 +1,7 @@
 package attendance.controller;
 
 import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
+import static attendance.config.AppConfig.NOW;
 
 import attendance.domain.ArrivalInformation;
 import attendance.domain.Crews;
@@ -11,6 +12,7 @@ import attendance.view.InputView;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class Controller {
         Crews crews = readCrewsFromFile(ATTENDANCES_CSV_DIR);
 
         String function;
-        while (!"Q".equals(function = readFunction())) {
+        while (!"Q".equals(function = readFunction(NOW))) {
             if ("1".equals(function)) {
                 handleAttendanceFunction(crews);
             }
@@ -55,8 +57,10 @@ public class Controller {
         });
     }
 
-    private String readFunction() {
-        return retryUntilValid(inputView::readFunction);
+    private String readFunction(LocalDateTime today) {
+        return retryUntilValid(
+                () -> inputView.readFunction(today)
+        );
     }
 
     private void handleAttendanceFunction(Crews crews) {

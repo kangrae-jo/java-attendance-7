@@ -4,10 +4,12 @@ import attendance.controller.Controller;
 import attendance.service.FileReaderService;
 import attendance.view.InputView;
 import attendance.view.OutputView;
+import java.time.LocalDateTime;
 
 public class AppConfig {
 
     public static String ATTENDANCES_CSV_DIR = "src/main/resources/attendances.csv";
+    public static LocalDateTime NOW = LocalDateTime.of(2024, 12, 13, 0, 0);
 
     private InputView inputView;
     private OutputView outputView;

@@ -32,6 +32,10 @@ public class Crew {
         return new ModifiedDto(before, after);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Map<LocalDate, ArrivalInformation> getAttendanceInformation() {
         return Map.copyOf(attendance);
     }

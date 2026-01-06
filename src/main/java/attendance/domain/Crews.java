@@ -17,6 +17,10 @@ public class Crews {
         return crew.getAttendanceInformation();
     }
 
+    public List<Crew> getCrews() {
+        return List.copyOf(crews);
+    }
+
     private Crew findCrewByName(String crewName) {
         for (Crew crew : crews) {
             if (crew.isSameName(crewName)) {

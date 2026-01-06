@@ -26,4 +26,8 @@ public class ArrivalInformation {
         return new ArrivalInformation(arrivalTime, State.ABSENCE);
     }
 
+    public State getState() {
+        return state;
+    }
+
 }

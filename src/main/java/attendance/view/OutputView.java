@@ -41,7 +41,7 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printAttendInformation(String name, Map<LocalDate, LocalTime> information) {
+    public void printAttendInformation(String name, Map<LocalDate, LocalTimeWithState> information) {
         System.out.println();
         System.out.println("이번 달 " + name + "의 출석 기록입니다.");
         printInformation(information);
@@ -64,14 +64,16 @@ public class OutputView {
         return "(" + state.getName() + ")";
     }
 
-    private void printInformation(Map<LocalDate, LocalTime> information) {
+    private void printInformation(Map<LocalDate, LocalTimeWithState> information) {
         System.out.println();
         for (LocalDate localDate : information.keySet()) {
             if (localDate.getDayOfWeek().getValue() == 6 || localDate.getDayOfWeek().getValue() == 7) {
                 continue;
             }
             System.out.print(getLocalDate(localDate));
-            System.out.println(getLocalTime(information.get(localDate)));
+            System.out.print(" " + getLocalTime(information.get(localDate).getLocalTime()));
+            System.out.print(" " + getState(information.get(localDate).getState()));
+            System.out.println();
         }
     }
 

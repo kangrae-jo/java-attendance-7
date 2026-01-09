@@ -30,12 +30,11 @@ public class Crew {
         return List.of(new LocalTimeWithState(date, prevTime), addAttend(date, time));
     }
 
-    public Map<LocalDate, LocalTime> getAttendInformation() {
-        Map<LocalDate, LocalTime> information = new TreeMap<>();
+    public Map<LocalDate, LocalTimeWithState> getAttendInformation() {
+        Map<LocalDate, LocalTimeWithState> information = new TreeMap<>();
         for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
             LocalDate localDate = LocalDate.of(2024, 12, i);
-            LocalTime localTime = attendanceInfo.get(localDate).getLocalTime();
-            information.put(localDate, localTime);
+            information.put(localDate, attendanceInfo.get(localDate));
         }
         return information;
     }

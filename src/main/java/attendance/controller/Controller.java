@@ -79,7 +79,7 @@ public class Controller {
         String name = inputView.readName();
         crews.hasThisCrew(name);
 
-        Map<LocalDate, LocalTime> information = crews.getAttendInformationByName(name);
+        Map<LocalDate, LocalTimeWithState> information = crews.getAttendInformationByName(name);
         outputView.printAttendInformation(name, information);
     }
 

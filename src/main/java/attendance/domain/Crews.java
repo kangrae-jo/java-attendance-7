@@ -27,7 +27,7 @@ public class Crews {
         return crew.modifyAttend(date, time);
     }
 
-    public Map<LocalDate, LocalTime> getAttendInformationByName(String name) {
+    public Map<LocalDate, LocalTimeWithState> getAttendInformationByName(String name) {
         Crew crew = findByName(name);
         return crew.getAttendInformation();
     }

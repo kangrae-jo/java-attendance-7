@@ -1,5 +1,6 @@
 package attendance.domain;
 
+import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Map;
@@ -24,6 +25,16 @@ public class Crew {
         LocalTime prevTime = attendanceInfo.get(date);
         addAttend(date, time);
         return prevTime;
+    }
+
+    public Map<LocalDate, LocalTime> getAttendInformation() {
+        Map<LocalDate, LocalTime> information = new TreeMap<>();
+        for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
+            LocalDate localDate = LocalDate.of(2024, 12, i);
+            LocalTime localTime = attendanceInfo.get(localDate);
+            information.put(localDate, localTime);
+        }
+        return information;
     }
 
     public String getName() {

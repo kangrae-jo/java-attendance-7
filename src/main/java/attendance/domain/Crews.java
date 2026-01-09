@@ -3,6 +3,7 @@ package attendance.domain;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 public class Crews {
 
@@ -24,6 +25,11 @@ public class Crews {
     public LocalTime modifyAttendByName(String name, LocalDate date, LocalTime time) {
         Crew crew = findByName(name);
         return crew.modifyAttend(date, time);
+    }
+
+    public Map<LocalDate, LocalTime> getAttendInformationByName(String name) {
+        Crew crew = findByName(name);
+        return crew.getAttendInformation();
     }
 
     private Crew findByName(String name) {

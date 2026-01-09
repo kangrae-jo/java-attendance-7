@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
 
@@ -40,7 +41,7 @@ public class Controller {
                 handleModifyAttend(crews);
             }
             if (command.equals("3")) {
-                // 출석 기록 확인
+                handlePrintAttend(crews);
             }
             if (command.equals("4")) {
                 // 제적 위험자 확인
@@ -70,6 +71,14 @@ public class Controller {
         LocalTime time = InputParser.parseLocalTime(inputView.readArrivalTimeToModify());
         LocalTime prevTime = crews.modifyAttendByName(name, date, time);
         outputView.printModifySuccessMsg(date, prevTime, time);
+    }
+
+    private void handlePrintAttend(Crews crews) {
+        String name = inputView.readName();
+        crews.hasThisCrew(name);
+
+        Map<LocalDate, LocalTime> information = crews.getAttendInformationByName(name);
+        outputView.printAttendInformation(name, information);
     }
 
     private void validateWeekend(LocalDateTime now) {

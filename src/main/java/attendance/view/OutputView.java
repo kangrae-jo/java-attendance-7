@@ -15,7 +15,7 @@ import java.util.Map;
 public class OutputView {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("M월 d일", Locale.KOREAN);
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:ss", Locale.KOREAN);
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.KOREAN);
 
     public void printError(String msg) {
         System.out.println("[ERROR] " + msg);

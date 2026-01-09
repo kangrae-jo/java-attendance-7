@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -24,10 +25,20 @@ public class OutputView {
         System.out.println(" " + getState(localTimeWithState.getState()));
     }
 
-    public void printModifySuccessMsg(LocalDate date, LocalTime prev, LocalTime time) {
+    public void printModifySuccessMsg(LocalDate date, List<LocalTimeWithState> information) {
+        LocalTimeWithState prev = information.getFirst();
+        LocalTimeWithState now = information.getLast();
+
         System.out.println();
-        System.out.print(getLocalDate(date));
-        System.out.println(getLocalTime(prev) + " -> " + getLocalTime(time));
+        System.out.print(getLocalDate(date) + " "
+                + getLocalTime(prev.getLocalTime()) + " "
+                + getState(prev.getState())
+        );
+        System.out.print(" -> "
+                + getLocalTime(now.getLocalTime()) + " "
+                + getState(now.getState())
+        );
+        System.out.println();
     }
 
     public void printAttendInformation(String name, Map<LocalDate, LocalTime> information) {

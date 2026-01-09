@@ -71,8 +71,8 @@ public class Controller {
 
         LocalDate date = InputParser.parseLocalDate(inputView.readDateToModify());
         LocalTime time = InputParser.parseLocalTime(inputView.readArrivalTimeToModify());
-        LocalTime prevTime = crews.modifyAttendByName(name, date, time);
-        outputView.printModifySuccessMsg(date, prevTime, time);
+        List<LocalTimeWithState> localTimeWithStates = crews.modifyAttendByName(name, date, time);
+        outputView.printModifySuccessMsg(date, localTimeWithStates);
     }
 
     private void handlePrintAttend(Crews crews) {

@@ -3,6 +3,7 @@ package attendance.domain;
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -23,10 +24,10 @@ public class Crew {
         return localTimeWithState;
     }
 
-    public LocalTime modifyAttend(LocalDate date, LocalTime time) {
+    public List<LocalTimeWithState> modifyAttend(LocalDate date, LocalTime time) {
         LocalTime prevTime = attendanceInfo.get(date).getLocalTime();
         addAttend(date, time);
-        return prevTime;
+        return List.of(new LocalTimeWithState(date, prevTime), addAttend(date, time));
     }
 
     public Map<LocalDate, LocalTime> getAttendInformation() {

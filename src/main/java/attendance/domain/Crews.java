@@ -22,7 +22,7 @@ public class Crews {
         return crew.addAttend(arrivalDate, arrivalTime);
     }
 
-    public LocalTime modifyAttendByName(String name, LocalDate date, LocalTime time) {
+    public List<LocalTimeWithState> modifyAttendByName(String name, LocalDate date, LocalTime time) {
         Crew crew = findByName(name);
         return crew.modifyAttend(date, time);
     }

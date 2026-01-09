@@ -42,14 +42,8 @@ public class Crew {
         return List.of(LocalTimeWithState.from(date, prevTime), addAttend(date, time));
     }
 
-    // TODO: 여기 이미 있는 키 로 불러오게 변경해야함 그럼 아웃풋에 검증 뺄수 있음
     public Map<LocalDate, LocalTimeWithState> getAttendInformation() {
-        Map<LocalDate, LocalTimeWithState> information = new TreeMap<>();
-        for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
-            LocalDate localDate = LocalDate.of(2024, 12, i);
-            information.put(localDate, attendanceInfo.get(localDate));
-        }
-        return information;
+        return attendanceInfo;
     }
 
     public Map<State, Integer> getStates() {
@@ -58,11 +52,7 @@ public class Crew {
             states.put(state, 0);
         }
 
-        for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
-            LocalDate localDate = LocalDate.of(2024, 12, i);
-            if (localDate.getDayOfWeek().getValue() == 6 || localDate.getDayOfWeek().getValue() == 7) {
-                continue;
-            }
+        for (LocalDate localDate : attendanceInfo.keySet()) {
             State state = attendanceInfo.get(localDate).getState();
             states.put(state, states.get(state) + 1);
         }
@@ -75,8 +65,8 @@ public class Crew {
 
     private Map<LocalDate, LocalTimeWithState> init() {
         attendanceInfo = new TreeMap<>();
-        for (int date = 1; date <= 31; date++) {
-            LocalDate localDate = LocalDate.of(2024, 12, date);
+        for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
+            LocalDate localDate = LocalDate.of(2024, 12, i);
             if (localDate.getDayOfWeek().getValue() == 6 || localDate.getDayOfWeek().getValue() == 7) {
                 continue;
             }

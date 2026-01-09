@@ -40,7 +40,7 @@ public class OutputView {
                 + getLocalTime(now.getLocalTime()) + " "
                 + getState(now.getState())
         );
-        System.out.println();
+        System.out.println(" 수정 완료!");
     }
 
     public void printAttendInformation(String name, Map<LocalDate, LocalTimeWithState> information) {

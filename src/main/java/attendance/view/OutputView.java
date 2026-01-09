@@ -46,7 +46,18 @@ public class OutputView {
         System.out.println();
         System.out.println("이번 달 " + name + "의 출석 기록입니다.");
         printInformation(information);
-        // 지각등 상태 출력
+        System.out.println();
+    }
+
+    public void printStatesByName(States states) {
+        Map<State, Integer> info = states.getStates();
+        System.out.println(State.ATTENDANCE.getName() + ": " + info.get(State.ATTENDANCE) + "회");
+        System.out.println(State.ABSENCE.getName() + ": " + info.get(State.ABSENCE) + "회");
+        System.out.println(State.TARDINESS.getName() + ": " + info.get(State.TARDINESS) + "회");
+        System.out.println();
+
+        System.out.println(states.getPolicy() + " 대상자입니다.");
+        System.out.println();
     }
 
     public void printStates(List<States> states) {

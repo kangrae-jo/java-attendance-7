@@ -82,6 +82,9 @@ public class Controller {
 
         Map<LocalDate, LocalTimeWithState> information = crews.getAttendInformationByName(name);
         outputView.printAttendInformation(name, information);
+
+        States states = crews.getStatesByName(name);
+        outputView.printStatesByName(states);
     }
 
     private void handlePrintStates(Crews crews) {

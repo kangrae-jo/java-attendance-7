@@ -9,7 +9,7 @@ import java.util.TreeMap;
 public class Crew {
 
     private final String name;
-    private Map<LocalDate, LocalTime> attendanceInfo;
+    private Map<LocalDate, LocalTimeWithState> attendanceInfo;
 
     public Crew(String name) {
         this.name = name;
@@ -17,12 +17,12 @@ public class Crew {
     }
 
     public void addAttend(LocalDate date, LocalTime time) {
-        attendanceInfo.put(date, time);
+        attendanceInfo.put(date, new LocalTimeWithState(date, time));
         // 이미 있는 경우 처리하기
     }
 
     public LocalTime modifyAttend(LocalDate date, LocalTime time) {
-        LocalTime prevTime = attendanceInfo.get(date);
+        LocalTime prevTime = attendanceInfo.get(date).getLocalTime();
         addAttend(date, time);
         return prevTime;
     }
@@ -31,7 +31,7 @@ public class Crew {
         Map<LocalDate, LocalTime> information = new TreeMap<>();
         for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
             LocalDate localDate = LocalDate.of(2024, 12, i);
-            LocalTime localTime = attendanceInfo.get(localDate);
+            LocalTime localTime = attendanceInfo.get(localDate).getLocalTime();
             information.put(localDate, localTime);
         }
         return information;
@@ -41,7 +41,7 @@ public class Crew {
         return name;
     }
 
-    private Map<LocalDate, LocalTime> init() {
+    private Map<LocalDate, LocalTimeWithState> init() {
         attendanceInfo = new TreeMap<>();
         for (int date = 1; date <= 31; date++) {
             attendanceInfo.put(LocalDate.of(2024, 12, date), null);

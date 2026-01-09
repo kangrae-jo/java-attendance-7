@@ -36,6 +36,15 @@ public class Crews {
         return crew.getAttendInformation();
     }
 
+    public List<States> getStates() {
+        List<States> result = new ArrayList<>();
+        for (Crew crew : crews) {
+            Map<State, Integer> states = crew.getStates();
+            result.add(States.from(crew.getName(), states));
+        }
+        return result;
+    }
+
     private Crew findByName(String name) {
         for (Crew crew : crews) {
             if (crew.getName().equals(name)) {

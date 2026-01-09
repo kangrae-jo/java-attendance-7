@@ -5,6 +5,7 @@ import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 import attendance.domain.Crew;
 import attendance.domain.Crews;
 import attendance.domain.LocalTimeWithState;
+import attendance.domain.States;
 import attendance.util.FileReader;
 import attendance.util.InputParser;
 import attendance.view.InputView;
@@ -45,7 +46,7 @@ public class Controller {
                 handlePrintAttend(crews);
             }
             if (command.equals("4")) {
-                // 제적 위험자 확인
+                handlePrintStates(crews);
             }
         }
     }
@@ -81,6 +82,11 @@ public class Controller {
 
         Map<LocalDate, LocalTimeWithState> information = crews.getAttendInformationByName(name);
         outputView.printAttendInformation(name, information);
+    }
+
+    private void handlePrintStates(Crews crews) {
+        List<States> states = crews.getStates();
+        outputView.printStates(states);
     }
 
     private void validateWeekend(LocalDateTime now) {

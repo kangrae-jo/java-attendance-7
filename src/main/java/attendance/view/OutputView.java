@@ -2,6 +2,7 @@ package attendance.view;
 
 import attendance.domain.LocalTimeWithState;
 import attendance.domain.State;
+import attendance.domain.States;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +49,14 @@ public class OutputView {
         // 지각등 상태 출력
     }
 
+    public void printStates(List<States> states) {
+        System.out.println("제적 위험자 조회 결과");
+        for (States info : states) {
+            printStateInfo(info);
+        }
+        System.out.println();
+    }
+
     public String getLocalTime(LocalTime localTime) {
         if (localTime == null) {
             return "--:--";
@@ -75,6 +84,15 @@ public class OutputView {
             System.out.print(" " + getState(information.get(localDate).getState()));
             System.out.println();
         }
+    }
+
+    private void printStateInfo(States info) {
+        System.out.print("- " + info.getName() + ": ");
+        Map<State, Integer> states = info.getStates();
+        System.out.print(State.ABSENCE.getName() + " " + states.get(State.ABSENCE) + "회, ");
+        System.out.print(State.TARDINESS.getName() + " " + states.get(State.TARDINESS) + "회 ");
+        System.out.print("(" + info.getPolicy() + ")");
+        System.out.println();
     }
 
 }

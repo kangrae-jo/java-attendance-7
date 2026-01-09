@@ -39,4 +39,8 @@ public enum State {
         return name;
     }
 
+    public int getPoint() {
+        return point;
+    }
+    
 }

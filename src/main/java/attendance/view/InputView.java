@@ -15,7 +15,7 @@ public class InputView {
         return Console.readLine();
     }
 
-    private String getLocalDate(LocalDate localDate) {
+    public String getLocalDate(LocalDate localDate) {
         return localDate.format(dateTimeFormatter) + " "
                 + localDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREA);
     }

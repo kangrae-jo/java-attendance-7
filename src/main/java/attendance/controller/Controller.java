@@ -31,7 +31,7 @@ public class Controller {
                 return;
             }
             if (command.equals("1")) {
-                // 출석 확인
+                handleAddAttend(now);
             }
             if (command.equals("2")) {
                 // 출석 수정
@@ -47,6 +47,17 @@ public class Controller {
 
     private List<Crew> readCrews(String filePath) {
         return InputParser.parseNames(FileReader.readFile(filePath));
+    }
+
+    private void handleAddAttend(LocalDateTime now) {
+        validateWeekend(now);
+
+    }
+
+    private void validateWeekend(LocalDateTime now) {
+        if (now.getDayOfWeek().getValue() == 6 || now.getDayOfWeek().getValue() == 7) {
+            throw new IllegalArgumentException("[ERROR] " + inputView.getLocalDate(now.toLocalDate()) + "은 등교일이 아닙니다.");
+        }
     }
 
 }

@@ -35,4 +35,8 @@ public enum State {
         return ATTENDANCE;
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

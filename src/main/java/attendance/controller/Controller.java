@@ -4,6 +4,7 @@ import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 
 import attendance.domain.Crew;
 import attendance.domain.Crews;
+import attendance.domain.LocalTimeWithState;
 import attendance.util.FileReader;
 import attendance.util.InputParser;
 import attendance.view.InputView;
@@ -59,8 +60,9 @@ public class Controller {
         String name = inputView.readName();
         crews.hasThisCrew(name);
 
-        String arrivalTime = inputView.readArrivalTime();
-        crews.addAttendByName(name, now.toLocalDate(), InputParser.parseLocalTime(arrivalTime));
+        LocalTime arrivalTime = InputParser.parseLocalTime(inputView.readArrivalTime());
+        LocalTimeWithState localTimeWithState = crews.addAttendByName(name, now.toLocalDate(), arrivalTime);
+        outputView.printAddSuccessMsg(now.toLocalDate(), localTimeWithState);
     }
 
     private void handleModifyAttend(Crews crews) {

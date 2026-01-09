@@ -17,4 +17,8 @@ public class LocalTimeWithState {
         return localTime;
     }
 
+    public State getState() {
+        return state;
+    }
+    
 }

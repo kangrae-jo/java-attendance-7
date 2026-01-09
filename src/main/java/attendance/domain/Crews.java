@@ -17,9 +17,9 @@ public class Crews {
         findByName(name);
     }
 
-    public void addAttendByName(String name, LocalDate arrivalDate, LocalTime arrivalTime) {
+    public LocalTimeWithState addAttendByName(String name, LocalDate arrivalDate, LocalTime arrivalTime) {
         Crew crew = findByName(name);
-        crew.addAttend(arrivalDate, arrivalTime);
+        return crew.addAttend(arrivalDate, arrivalTime);
     }
 
     public LocalTime modifyAttendByName(String name, LocalDate date, LocalTime time) {

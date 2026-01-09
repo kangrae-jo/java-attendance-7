@@ -16,9 +16,11 @@ public class Crew {
         this.attendanceInfo = init();
     }
 
-    public void addAttend(LocalDate date, LocalTime time) {
-        attendanceInfo.put(date, new LocalTimeWithState(date, time));
-        // 이미 있는 경우 처리하기
+    public LocalTimeWithState addAttend(LocalDate date, LocalTime time) {
+        // TODO: 이미 있는 경우 처리하기
+        LocalTimeWithState localTimeWithState = new LocalTimeWithState(date, time);
+        attendanceInfo.put(date, localTimeWithState);
+        return localTimeWithState;
     }
 
     public LocalTime modifyAttend(LocalDate date, LocalTime time) {

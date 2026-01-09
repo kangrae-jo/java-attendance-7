@@ -1,5 +1,7 @@
 package attendance.view;
 
+import attendance.domain.LocalTimeWithState;
+import attendance.domain.State;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +16,12 @@ public class OutputView {
 
     public void printError(String msg) {
         System.out.println("[ERROR] " + msg);
+    }
+
+    public void printAddSuccessMsg(LocalDate localDate, LocalTimeWithState localTimeWithState) {
+        System.out.print(getLocalDate(localDate));
+        System.out.print(" " + getLocalTime(localTimeWithState.getLocalTime()));
+        System.out.println(" " + getState(localTimeWithState.getState()));
     }
 
     public void printModifySuccessMsg(LocalDate date, LocalTime prev, LocalTime time) {
@@ -39,6 +47,10 @@ public class OutputView {
     public String getLocalDate(LocalDate localDate) {
         return localDate.format(dateTimeFormatter) + " "
                 + localDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREA);
+    }
+
+    private String getState(State state) {
+        return "(" + state.getName() + ")";
     }
 
     private void printInformation(Map<LocalDate, LocalTime> information) {

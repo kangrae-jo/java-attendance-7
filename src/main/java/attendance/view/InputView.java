@@ -15,6 +15,12 @@ public class InputView {
         return Console.readLine();
     }
 
+    public String readName() {
+        System.out.println();
+        System.out.println("닉네임을 입력해주세요.");
+        return Console.readLine();
+    }
+
     public String getLocalDate(LocalDate localDate) {
         return localDate.format(dateTimeFormatter) + " "
                 + localDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREA);

@@ -3,6 +3,7 @@ package attendance.controller;
 import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
 
 import attendance.domain.Crew;
+import attendance.domain.Crews;
 import attendance.util.FileReader;
 import attendance.util.InputParser;
 import attendance.view.InputView;
@@ -22,16 +23,16 @@ public class Controller {
     }
 
     public void run() {
-        List<Crew> crews = readCrews(ATTENDANCES_CSV_DIR);
-
+        Crews crews = new Crews(readCrews(ATTENDANCES_CSV_DIR));
         LocalDateTime now = DateTimes.now();
+
         while (true) {
             String command = inputView.readCommand(now.toLocalDate());
             if (command.equals("Q")) {
                 return;
             }
             if (command.equals("1")) {
-                handleAddAttend(now);
+                handleAddAttend(now, crews);
             }
             if (command.equals("2")) {
                 // 출석 수정
@@ -49,8 +50,10 @@ public class Controller {
         return InputParser.parseNames(FileReader.readFile(filePath));
     }
 
-    private void handleAddAttend(LocalDateTime now) {
+    private void handleAddAttend(LocalDateTime now, Crews crews) {
         validateWeekend(now);
+        crews.hasThisCrew(inputView.readName());
+        
 
     }
 

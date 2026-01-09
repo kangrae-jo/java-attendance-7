@@ -6,9 +6,9 @@ import java.time.LocalTime;
 
 public enum State {
 
-    ATTENDANCE("출석", 0, 0),
+    ABSENCE("결석", 30, 3),
     TARDINESS("지각", 5, 1),
-    ABSENCE("결석", 30, 3);
+    ATTENDANCE("출석", 0, 0);
 
     private final String name;
     private final int minute;
@@ -42,5 +42,5 @@ public enum State {
     public int getPoint() {
         return point;
     }
-    
+
 }

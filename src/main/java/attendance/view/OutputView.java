@@ -1,6 +1,7 @@
 package attendance.view;
 
 import attendance.domain.LocalTimeWithState;
+import attendance.domain.Policy;
 import attendance.domain.State;
 import attendance.domain.States;
 import java.time.LocalDate;
@@ -52,11 +53,13 @@ public class OutputView {
     public void printStatesByName(States states) {
         Map<State, Integer> info = states.getStates();
         System.out.println(State.ATTENDANCE.getName() + ": " + info.get(State.ATTENDANCE) + "회");
-        System.out.println(State.ABSENCE.getName() + ": " + info.get(State.ABSENCE) + "회");
         System.out.println(State.TARDINESS.getName() + ": " + info.get(State.TARDINESS) + "회");
+        System.out.println(State.ABSENCE.getName() + ": " + info.get(State.ABSENCE) + "회");
         System.out.println();
 
-        System.out.println(states.getPolicy() + " 대상자입니다.");
+        if (states.getPolicy() != Policy.NONE) {
+            System.out.println(states.getPolicy().getName() + " 대상자입니다.");
+        }
         System.out.println();
     }
 
@@ -102,7 +105,7 @@ public class OutputView {
         Map<State, Integer> states = info.getStates();
         System.out.print(State.ABSENCE.getName() + " " + states.get(State.ABSENCE) + "회, ");
         System.out.print(State.TARDINESS.getName() + " " + states.get(State.TARDINESS) + "회 ");
-        System.out.print("(" + info.getPolicy() + ")");
+        System.out.print("(" + info.getPolicy().getName() + ")");
         System.out.println();
     }
 

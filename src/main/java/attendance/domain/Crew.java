@@ -15,6 +15,14 @@ public class Crew {
         this.attendanceInfo = init();
     }
 
+    public void addAttend(LocalDate date, LocalTime time) {
+        attendanceInfo.put(date, time);
+    }
+
+    public String getName() {
+        return name;
+    }
+
     private Map<LocalDate, LocalTime> init() {
         attendanceInfo = new TreeMap<>();
         for (int date = 1; date <= 31; date++) {

@@ -7,6 +7,8 @@ import attendance.view.OutputView;
 
 public class AppConfig {
 
+    public static String ATTENDANCES_CSV_DIR = "src/main/resources/attendances.csv";
+
     private InputView inputView;
     private OutputView outputView;
     private Controller controller;

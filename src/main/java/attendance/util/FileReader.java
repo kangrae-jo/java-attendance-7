@@ -9,7 +9,7 @@ public class FileReader {
     private FileReader() {
     }
 
-    public List<String> readFile(String filePath) {
+    public static List<String> readFile(String filePath) {
         try (BufferedReader bufferedReader = new BufferedReader(new java.io.FileReader(filePath))) {
             return bufferedReader.lines().toList();
         } catch (IOException e) {

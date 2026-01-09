@@ -1,8 +1,13 @@
 package attendance.controller;
 
+import static attendance.config.AppConfig.ATTENDANCES_CSV_DIR;
+
+import attendance.domain.Crew;
+import attendance.util.FileReader;
+import attendance.util.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
-import java.util.function.Supplier;
+import java.util.List;
 
 public class Controller {
 
@@ -15,17 +20,12 @@ public class Controller {
     }
 
     public void run() {
+        List<Crew> crews = readCrews(ATTENDANCES_CSV_DIR);
 
     }
 
-    private <T> T retryUntilValid(Supplier<T> supplier) {
-        while (true) {
-            try {
-                return supplier.get();
-            } catch (Exception e) {
-                outputView.printError(e.getMessage());
-            }
-        }
+    private List<Crew> readCrews(String filePath) {
+        return InputParser.parseNames(FileReader.readFile(filePath));
     }
 
 }

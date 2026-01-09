@@ -52,8 +52,10 @@ public class Controller {
 
     private void handleAddAttend(LocalDateTime now, Crews crews) {
         validateWeekend(now);
-        crews.hasThisCrew(inputView.readName());
-        
+        String name = inputView.readName();
+        crews.hasThisCrew(name);
+        String arrivalTime = inputView.readArrivalTime();
+        crews.addAttendByName(name, now.toLocalDate(), InputParser.parseLocalTime(arrivalTime));
 
     }
 

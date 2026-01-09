@@ -17,6 +17,7 @@ public class Crew {
 
     public void addAttend(LocalDate date, LocalTime time) {
         attendanceInfo.put(date, time);
+        // 이미 있는 경우 처리하기
     }
 
     public String getName() {

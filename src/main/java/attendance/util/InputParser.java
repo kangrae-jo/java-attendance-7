@@ -27,6 +27,14 @@ public class InputParser {
         }
     }
 
+    public static LocalTime parseLocalTime(String input) {
+        try {
+            return LocalTime.parse(input.strip() + ":00");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("[ERROR] 잘못된 형식을 입력하였습니다.");
+        }
+    }
+
     private static void addCrews(List<Crew> crews, String name, String dateTime) {
         String[] split = dateTime.split(" ");
         LocalDate date = LocalDate.parse(split[0].strip());

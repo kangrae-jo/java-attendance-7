@@ -2,6 +2,7 @@ package attendance.domain;
 
 import camp.nextstep.edu.missionutils.DateTimes;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
@@ -30,16 +31,26 @@ public class Crew {
     }
 
     public LocalTimeWithState addAttend(LocalDate date, LocalTime time) {
-        // TODO: 이미 있는 경우 처리하기
+        if (attendanceInfo.get(date) != null) {
+            throw new IllegalArgumentException("이미 출석을 확인하였습니다. 필요한 경우 수정 기능을 이용해주세요.");
+        }
+
         LocalTimeWithState localTimeWithState = LocalTimeWithState.from(date, time);
         attendanceInfo.put(date, localTimeWithState);
         return localTimeWithState;
     }
 
     public List<LocalTimeWithState> modifyAttend(LocalDate date, LocalTime time) {
+        LocalDateTime localDateTime = LocalDateTime.of(date, time);
+        if (localDateTime.isAfter(DateTimes.now())) {
+            throw new IllegalArgumentException("아직 수정할 수 없습니다.");
+        }
+
         LocalTime prevTime = attendanceInfo.get(date).getLocalTime();
-        addAttend(date, time);
-        return List.of(LocalTimeWithState.from(date, prevTime), addAttend(date, time));
+        LocalTimeWithState localTimeWithState = LocalTimeWithState.from(date, time);
+        attendanceInfo.put(date, localTimeWithState);
+
+        return List.of(LocalTimeWithState.from(date, prevTime), localTimeWithState);
     }
 
     public Map<LocalDate, LocalTimeWithState> getAttendInformation() {

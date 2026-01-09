@@ -18,7 +18,7 @@ public class AppConfig {
 
     public InputView inputView() {
         if (inputView == null) {
-            inputView = new InputView();
+            inputView = new InputView(outputView());
         }
         return inputView;
     }

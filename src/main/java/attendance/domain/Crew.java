@@ -20,6 +20,12 @@ public class Crew {
         // 이미 있는 경우 처리하기
     }
 
+    public LocalTime modifyAttend(LocalDate date, LocalTime time) {
+        LocalTime prevTime = attendanceInfo.get(date);
+        addAttend(date, time);
+        return prevTime;
+    }
+
     public String getName() {
         return name;
     }

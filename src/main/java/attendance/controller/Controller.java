@@ -9,7 +9,9 @@ import attendance.util.InputParser;
 import attendance.view.InputView;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Controller {
@@ -35,7 +37,7 @@ public class Controller {
                 handleAddAttend(now, crews);
             }
             if (command.equals("2")) {
-                // 출석 수정
+                handleModifyAttend(crews);
             }
             if (command.equals("3")) {
                 // 출석 기록 확인
@@ -52,16 +54,28 @@ public class Controller {
 
     private void handleAddAttend(LocalDateTime now, Crews crews) {
         validateWeekend(now);
+
         String name = inputView.readName();
         crews.hasThisCrew(name);
+
         String arrivalTime = inputView.readArrivalTime();
         crews.addAttendByName(name, now.toLocalDate(), InputParser.parseLocalTime(arrivalTime));
+    }
 
+    private void handleModifyAttend(Crews crews) {
+        String name = inputView.readNameToModify();
+        crews.hasThisCrew(name);
+
+        LocalDate date = InputParser.parseLocalDate(inputView.readDateToModify());
+        LocalTime time = InputParser.parseLocalTime(inputView.readArrivalTimeToModify());
+        LocalTime prevTime = crews.modifyAttendByName(name, date, time);
+        outputView.printModifySuccessMsg(date, prevTime, time);
     }
 
     private void validateWeekend(LocalDateTime now) {
         if (now.getDayOfWeek().getValue() == 6 || now.getDayOfWeek().getValue() == 7) {
-            throw new IllegalArgumentException("[ERROR] " + inputView.getLocalDate(now.toLocalDate()) + "은 등교일이 아닙니다.");
+            throw new IllegalArgumentException(
+                    "[ERROR] " + outputView.getLocalDate(now.toLocalDate()) + "은 등교일이 아닙니다.");
         }
     }
 

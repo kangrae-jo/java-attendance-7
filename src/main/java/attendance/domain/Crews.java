@@ -21,6 +21,11 @@ public class Crews {
         crew.addAttend(arrivalDate, arrivalTime);
     }
 
+    public LocalTime modifyAttendByName(String name, LocalDate date, LocalTime time) {
+        Crew crew = findByName(name);
+        return crew.modifyAttend(date, time);
+    }
+
     private Crew findByName(String name) {
         for (Crew crew : crews) {
             if (crew.getName().equals(name)) {

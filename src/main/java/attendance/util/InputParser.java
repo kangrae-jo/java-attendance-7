@@ -15,8 +15,7 @@ public class InputParser {
         try {
             List<Crew> crews = new ArrayList<>();
             for (int i = 1; i < lines.size(); i++) {
-                String line = lines.get(i);
-                String[] split = line.split(",");
+                String[] split = lines.get(i).split(",");
                 String name = split[0].strip();
                 String dateTime = split[1].strip();
                 addCrews(crews, name, dateTime);

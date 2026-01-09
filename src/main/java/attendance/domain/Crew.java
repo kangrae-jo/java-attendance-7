@@ -17,9 +17,20 @@ public class Crew {
         this.attendanceInfo = init();
     }
 
+    public void addAbsent() {
+        for (int i = 1; i < DateTimes.now().getDayOfMonth() - 1; i++) {
+            LocalDate localDate = LocalDate.of(2024, 12, i);
+            if (localDate.getDayOfWeek().getValue() == 6 || localDate.getDayOfWeek().getValue() == 7) {
+                continue;
+            }
+            attendanceInfo.computeIfAbsent(localDate, k ->
+                    LocalTimeWithState.of(null, State.ABSENCE));
+        }
+    }
+
     public LocalTimeWithState addAttend(LocalDate date, LocalTime time) {
         // TODO: 이미 있는 경우 처리하기
-        LocalTimeWithState localTimeWithState = new LocalTimeWithState(date, time);
+        LocalTimeWithState localTimeWithState = LocalTimeWithState.from(date, time);
         attendanceInfo.put(date, localTimeWithState);
         return localTimeWithState;
     }
@@ -27,7 +38,7 @@ public class Crew {
     public List<LocalTimeWithState> modifyAttend(LocalDate date, LocalTime time) {
         LocalTime prevTime = attendanceInfo.get(date).getLocalTime();
         addAttend(date, time);
-        return List.of(new LocalTimeWithState(date, prevTime), addAttend(date, time));
+        return List.of(LocalTimeWithState.from(date, prevTime), addAttend(date, time));
     }
 
     public Map<LocalDate, LocalTimeWithState> getAttendInformation() {
@@ -46,7 +57,11 @@ public class Crew {
     private Map<LocalDate, LocalTimeWithState> init() {
         attendanceInfo = new TreeMap<>();
         for (int date = 1; date <= 31; date++) {
-            attendanceInfo.put(LocalDate.of(2024, 12, date), null);
+            LocalDate localDate = LocalDate.of(2024, 12, date);
+            if (localDate.getDayOfWeek().getValue() == 6 || localDate.getDayOfWeek().getValue() == 7) {
+                continue;
+            }
+            attendanceInfo.put(localDate, null);
         }
         return attendanceInfo;
     }

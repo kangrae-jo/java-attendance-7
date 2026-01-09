@@ -8,9 +8,17 @@ public class LocalTimeWithState {
     private final LocalTime localTime;
     private final State state;
 
-    public LocalTimeWithState(LocalDate localDate, LocalTime localTime) {
+    private LocalTimeWithState(LocalTime localTime, State state) {
         this.localTime = localTime;
-        this.state = State.from(localDate, localTime);
+        this.state = state;
+    }
+
+    public static LocalTimeWithState from(LocalDate localDate, LocalTime localTime) {
+        return new LocalTimeWithState(localTime, State.from(localDate, localTime));
+    }
+
+    public static LocalTimeWithState of(LocalTime localTime, State state) {
+        return new LocalTimeWithState(localTime, state);
     }
 
     public LocalTime getLocalTime() {
@@ -20,5 +28,5 @@ public class LocalTimeWithState {
     public State getState() {
         return state;
     }
-    
+
 }

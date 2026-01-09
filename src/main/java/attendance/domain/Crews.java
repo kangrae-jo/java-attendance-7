@@ -2,6 +2,7 @@ package attendance.domain;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,10 @@ public class Crews {
     private final List<Crew> crews;
 
     public Crews(List<Crew> crews) {
-        this.crews = crews;
+        this.crews = new ArrayList<>(crews);
+        for (Crew crew : crews) {
+            crew.addAbsent();
+        }
     }
 
     public void hasThisCrew(String name) {
